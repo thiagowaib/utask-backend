@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 
+const app = express();
 const server = require('http').Server(app);
 // Configuração de realtime - websocket
 const io = require('socket.io')(server, {
