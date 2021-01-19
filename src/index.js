@@ -13,6 +13,9 @@ const io = require('socket.io')(server, {
 });
 
 // Conexão com a base de dados
+// ----------------------------------
+// Falta o endereço da base de dados
+// ----------------------------------
 mongoose.connect('', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
