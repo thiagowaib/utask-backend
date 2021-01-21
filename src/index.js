@@ -4,6 +4,8 @@ const path = require('path');
 const cors = require('cors');
 
 const app = express();
+app.use(express.json());
+
 const server = require('http').Server(app);
 // Configuração de realtime - websocket
 const io = require('socket.io')(server, {
@@ -13,15 +15,14 @@ const io = require('socket.io')(server, {
   },
 });
 
-// Conexão com a base de dados
-// ----------------------------------
-// Falta o endereço da base de dados << Resolvido ?
-// ----------------------------------
-mongoose.connect('mongodb+srv://grupo1unect:unect@cluster0.qhm7x.mongodb.net/test?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
+mongoose.connect(
+  'mongodb+srv://grupo1unect:unect@cluster0.qhm7x.mongodb.net/test?retryWrites=true&w=majority',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  },
+);
 
 // Passa a informação da compatibilidade WebSocket com todos as
 // Rotas, podendo ser acessada de todos os middlewers
