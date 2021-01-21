@@ -1,6 +1,5 @@
 const Task = require('../models/Task');
 const path = require('path');
-const fs = require('fs');
 
 module.exports = {
   async index(req, res) {
