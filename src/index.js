@@ -15,9 +15,9 @@ const io = require('socket.io')(server, {
 
 // Conexão com a base de dados
 // ----------------------------------
-// Falta o endereço da base de dados
+// Falta o endereço da base de dados << Resolvido ?
 // ----------------------------------
-mongoose.connect('', {
+mongoose.connect('mongodb+srv://grupo1unect:unect@cluster0.qhm7x.mongodb.net/test?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,

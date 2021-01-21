@@ -1,16 +1,12 @@
 const express = require('express');
-// ---------------------------
-// Importar o Controller aqui
-// ---------------------------
+const PostController = require ('./controllers/PostController');
+const multer = require('multer');
+const uploadConfig = require('./config/upload');
 
 const routes = new express.Router();
+const upload = multer(uploadConfig);
 
-// -----------------------------------------
-// adicionar  do controller:
-// routes.post('/tasks', Controller.função)
-// routes.get('/tasks', Controller.função)
-// . . .
-// -----------------------------------------
-routes.post('/tasks');
+routes.get('/tasks', PostController.index);
+routes.post('/tasks', upload.single('image'), PostController.store);
 
 module.exports = routes;
