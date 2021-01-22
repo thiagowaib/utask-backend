@@ -1,5 +1,4 @@
 const Task = require('../models/Task');
-const path = require('path');
 
 module.exports = {
   async index(req, res) {
@@ -9,10 +8,11 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { description } = req.body;
+    const { description, feito } = req.body;
 
     const task = await Task.create({
       description,
+      feito,
     });
 
     return res.json(task);
