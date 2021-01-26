@@ -1,12 +1,15 @@
 const Task = require('../models/Task');
 
 module.exports = {
+  // Função que organiza as Tasks em ordem crescente de tempo(passado).
   async index(req, res) {
     const tasks = await Task.find().sort('createdAt');
 
+    req.io.emit('index', tasks);
     return res.json(tasks);
   },
 
+  // Função que armazena uma nova Task
   async store(req, res) {
     const { description, feito } = req.body;
 
@@ -14,31 +17,33 @@ module.exports = {
       description,
       feito,
     });
-
+    req.io.emit('store', task);
     return res.json(task);
   },
 
-  async concludeTrue(req, res){
+  // Função que Faz a mudança de estado (Todo <-> Done)
+  async conclude(req, res) {
     const task = await Task.findById(req.params.id);
-    console.log(task.feito);
-    if(task.feito == false)
-    {
-    task.feito = true
+
+    if (task.feito === false) {
+      task.feito = true;
+    } else {
+      task.feito = false;
     }
-    await task.save()
-    req.io.emit('concludeTrue', task)
+
+    await task.save();
+    req.io.emit('conclude', task);
     return res.json(task);
   },
 
-  async concludeFalse(req, res){
-    const task = await Task.findById(req.params.id);
-    console.log(task.feito);
-    if(task.feito==true)
-    {
-    task.feito = false
-    }
-    await task.save()
-    req.io.emit('concludeFalse', task)
-    return res.json(task);
-  }
+  async remove(req, res) {
+    Task.findByIdAndDelete(req.params.id, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        req.io.emit('remove', result);
+      }
+      return res.json(result);
+    });
+  },
 };

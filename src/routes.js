@@ -5,7 +5,7 @@ const routes = new express.Router();
 
 routes.get('/tasks', TaskController.index);
 routes.post('/tasks', TaskController.store);
-routes.post('/tasks/:id/concludeTrue', TaskController.concludeTrue);
-routes.post('/tasks/:id/concludeFalse', TaskController.concludeFalse);
+routes.post('/tasks/:id/conclude', TaskController.conclude);
+routes.delete('/tasks/:id/remove', TaskController.remove);
 
 module.exports = routes;
