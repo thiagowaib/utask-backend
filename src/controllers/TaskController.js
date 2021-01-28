@@ -22,6 +22,7 @@ module.exports = {
   },
 
   // Função que Faz a mudança de estado (Todo <-> Done)
+  // (Procura pelo ID)
   async conclude(req, res) {
     const task = await Task.findById(req.params.id);
 
@@ -36,6 +37,8 @@ module.exports = {
     return res.json(task);
   },
 
+  // Função que remove a task do banco de dados
+  // (Procura pelo ID)
   async remove(req, res) {
     Task.findByIdAndDelete(req.params.id, function (err, result) {
       if (err) {

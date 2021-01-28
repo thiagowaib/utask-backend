@@ -1,12 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path');
 const cors = require('cors');
 
 const app = express();
+// Habilita o uso do postSchema como formato Json
 app.use(express.json());
 
 const server = require('http').Server(app);
+
 // Configuração de realtime - websocket
 const io = require('socket.io')(server, {
   cors: {
@@ -15,6 +16,7 @@ const io = require('socket.io')(server, {
   },
 });
 
+// Conexão com a base de dados (MongoDb)
 mongoose.connect(
   'mongodb+srv://grupo1unect:unect@cluster0.qhm7x.mongodb.net/test?retryWrites=true&w=majority',
   {
